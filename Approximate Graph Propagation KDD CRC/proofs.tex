@@ -1,0 +1,569 @@
+%\clearpage
+\balance
+\section{Proofs} \label{sec:proofs}
+
+%\subsection{Chernoff Bound} \label{sec:chernoff}
+%\begin{lemma}[Chernoff Bound \cite{ChungL06}] \label{lmm:chernoff}
+%	For a set $\{x_i\}$ ($i \in [1, n_r]$) of i.i.d.\ random variables with mean $\mu$ and $x_i \in [0, 1]$,
+%	$$\Pr\left[\left|{1\over n_r}\sum_{i=1}^{n_r} x_i - \mu\right| \geq \e\right] \leq \exp\left(-\dfrac{n_r \cdot \e^2}{\frac{2}{3}\e + 2\mu}\right).$$
+%	\end{lemma}
+
+%\subsection{Bernstein Inequality} \label{sec:Bernstein}
+%\begin{lemma}[Bernstein inequality~\cite{ChungL06}]\label{lem:conc}
+%	Let $X_1, \cdots, X_R$ be independent  random variables with
+%	$|X_i| <  b$ for $i=1,\ldots, R$. Let
+%	$X=\frac{1}{R}\cdot\sum^R_{i=1}X_i$, we have
+%	\begin{equation}\nonumber
+%	\Pr[|X-\E[X]|\ge \lambda] \le 2\cdot \exp\left(-\frac{\lambda^2\cdot
+%		R}{2R\cdot \Var[X] + 2b\lambda/3}\right),
+%	\end{equation}
+%	where $\Var[X]$ is the variance of $X$.
+%\end{lemma}
+
+\subsection{Chebyshev's Inequality} \label{sec:chebyshev}
+\vspace{-1mm}\begin{lemma}[Chebyshev's inequality] \label{lmm:chebysev}
+	Let $X$ be a random variable, then $\Pr\left[\left| X -\E[X]\right| \geq \e\right] \le {\Var[X] \over \e^2 }. $
+\end{lemma}
+%\vspace{-2mm}
+%\subsection{Median Trick} \label{sec:median-of-mean}
+%\vspace{-1mm}\begin{lemma}[\cite{charikar2002finding}]\label{lmm:median}
+%	Let $X_1, \ldots, X_k$ be $k \ge 3\log {1\over \delta} $ i.i.d. random variables, such
+%	that $\Pr\left[\left| X_i -E[X_i]\right| \geq \e\right] \le {1\over 3}$.
+%	Let $X =\textrm{Median}_{1 \le i \le k}X_i$, then
+%	$\Pr\left[\left| X -E[X]\right| \geq \e\right] \le \delta$.
+%\end{lemma}
+
+
+%\subsection{Proof of Theorem~\ref{thm:basic}}
+%\begin{proof} 
+%Recall that in each propagation operation assuming from node $u$ at level $i$ ($i< L$), we always transfer $\frac{Y_{i+1}}{Y_i}\cdot \frac{\hat{\vec{r}}^{(i)}(u)}{d_v^{a} \cdot d_u^b}$ to each neighbor of node $u$. And thus for $\forall v\in N_u$, %Thus, actually, for the first $L$ level $i\in [0,L]$, 
+%\begin{equation}\nonumber
+%\vspace{-2mm}
+%	\begin{aligned}
+%		\hat{\vec{r}}^{(i+1)}(v)=\frac{Y_{i+1}}{Y_i}\cdot \hspace{-1mm}\sum_{u \in N_v}\frac{\hat{\vec{r}}^{(i)}(u)}{d_v^a\cdot d_u^b}, 
+%	\end{aligned}
+%\end{equation}
+%which concurs with the recursive formula~\eqref{eqn:iteration}. Because $\hat{\vec{r}}^{(0)}=\vec{r}^{(0)}=\vec{x}$, for each node $v\in V$ at the first level $i\in [0,L]$, we can derive that $\hat{\vec{r}}^{(i)}(u)=\vec{r}^{(i)}(u)$ by induction. Hence, in the first $L$ level $i\in [0,L]$, the estimated residue $\hat{\vec{r}}^{(i+1)}(v)$ deterministically equals to the true value of residue $\vec{r}^{(i+1)}(v)$ that
+%\begin{equation}\nonumber
+%\vspace{-2mm}
+%	\begin{aligned}
+%		\hat{\vec{r}}^{(i)}=\vec{r}^{(i)}=\frac{Y_i}{Y_0} \cdot \left(\D^{-a}\A \D^{-b} \right)^i \cdot \vec{x}.  
+%	\end{aligned}
+%\end{equation}
+%Because we add $\hat{\vec{q}}^{(i)}(u)$ by $\frac{w_i}{Y_i}\cdot\hat{\vec{r}}^{(i)}(u)$ after the propagation from node $u$ at level $i$ to its neighbors, it follows that
+%\begin{equation}\nonumber
+%	\begin{aligned}
+%\hat{\vec{q}}^{(i)}=\frac{w_i}{Y_i}\cdot \hat{\vec{r}}^{(i)}=\frac{w_i}{Y_0} \cdot \left(\D^{-a}\A \D^{-b} \right)^i \cdot \vec{x}=\vec{q}^{(i)}. 
+%	\end{aligned}
+%\end{equation}
+%As for the level $\ell\ge L$, according to Algorithm~\ref{alg:AGP-deter}, we truncate the propagation and let $\hat{\pi}=Y_0\cdot \sum_{i=0}^L \hat{\vec{q}}^{(i)}$, where $\epi$ denotes the estimated propagation vector. Hence, the error of $\epi$ all comes from the truncation and for any node $v\in V$,
+%\begin{equation}\nonumber
+%	\begin{aligned}
+%		\vec{\pi}(v)-\vec{\epi}(v)=Y_0\cdot \sum_{i=L}^\infty \hat{\vec{q}}^{(i)}(v)\le \sum_{i=L}^\infty w_i. 
+%	\end{aligned}
+%\end{equation}
+%Note that the entry of $\left(\D^{-a}\A \D^{-b} \right)^i$ corresponds to the $i$-hop transition probability, which is always smaller than $1$. By Assumption~\ref{asm:L}, if we set $L=c\cdot \log{\frac{1}{\delta}}=O\left( \log{\frac{1}{\delta}}\right)$, %we have $\sum_{i=L}^\infty w_i \le \frac{\delta}{10}$. Hence, $\vec{\pi}-\vec{\epi}\le \delta$. For any node $v$ with $\pi(v)>\delta$, we can further yield that $\vec{\pi}(v)-\vec{\epi}(v))\le \frac{1}{10}\delta \le \frac{1}{10} \pi(v)$. 
+%the error brought by the truncation can be bounded by $\delta$, following the definition of approximation propagation with the relative error threshold $\delta$ given in Definition~\ref{def:pro-relative}. 
+
+%Next, we show that the time cost of Algorithm~\ref{alg:AGP-deter} can be bounded by $O\left(m\cdot \log{\frac{1}{\delta}}\right)$. According to Algorithm~\ref{alg:AGP-deter}, each propagation supposing from node $u$ at any level $i\in [0,L]$ will cost $O(d_u)$ to increase the residues of its neighbors. %$\tilde{d}(u)=d_{o}(u)$ if $\tilde{\bm{A}}=\bm{A}^\top$, or $\tilde{d}(u)=d_{i}(u)$ if $\tilde{\bm{A}}=\bm{A}$. 
+%We will do the propagation from every node with nonzero residue. %By the small world theory~\cite{milgram1967small}, the propagation, even from only one node, can quickly touch most of the nodes on the graph. The number of nodes with nonzero residues can reach $n$ within a few iterations. 
+%Thus, the cost of one iteration may achieve $O(m)$. After $L=\log{1 \over \delta}$ iterations, the total cost of Algorithm~\ref{alg:AGP-deter} can be bounded by $O\left(m\cdot \log{1 \over \delta}\right)$, which follows the theorem. 
+
+%\end{proof}
+
+
+% \subsection{Proof of Theorem~\ref{thm:subsampling}}
+% \begin{proof}
+% %We first show the independence of each sampling. Then we prove the cost bound of Algorithm~\ref{alg:AGP-deter}. 
+% %Recall that in Algorithm~\ref{alg:subsampling}, we use geometric distribution to sample elements. Let $Y_i$ denote the geometric variable with probability $p_i$. Then $\Pr\{Y_i=r_i\}$ gives the probability that the first success happens after $r_i-1$ independent Bernoulli trials, where the success probability of every trial is $p_i$. Thus, if the sampling probabilities of elements $\{x_i,x_{i+1},...,x_{i+r_i}\}$ are all equal to $p_i$, independently sampling these elements with probability $p_i$ one by one is equivalent to generate a random number $r_i$ following the geometric distribution with parameter $p_i$ and straightly pick the element $x_{i+r_i}$. 
+% 	%This is because the geometric distribution gives the probability of first occurrence of success in sequentially independent Bernoulli trials. 
+% Recall that in Algorithm~\ref{alg:subsampling}, we repeatedly sample geometric random numbers independently. Specifically, in the sampling process, We pick out the node $v_{j+r_j}$ with probability $p_j$, and we add it to the set $S$ with probability $\frac{p_{j+r_j}}{p_j}$ to guarantee the sampling probability equals to $p_j \cdot \frac{p_{j+r_j}}{p_j}=p_{j+r_j}$. Hence, Algorithm~\ref{alg:subsampling} can finally return the sample set independently and unbiasedly.
+% 	%Note that the elements have sorted according to corresponding sampling probabilities in the descending order. Thus, $p_i>p_{i+r_i}$ and $x_{i+r_i}$ is less likely to be sampled with its true sample probability $p_{i+r_i}$. Hence, we will not miss the elements which ought to be sampled in expectation. 
+% 	%What's more, after we pick out the element $x_{i+r_i}$ with probability $p_i$, we add it to the set $X$ with probability $\frac{p_{i+r_i}}{p_i}$ to guarantee the unbiasedness of sampling process. Hence, Algorithm~\ref{alg:subsampling} can finally return the sample set independently and unbiasedly.  
+	
+% 	Next, we show that the expected cost of Algorithm~\ref{alg:subsampling} can be bounded by $O(\mu+\log{d_u})$. Consider the following algorithm: divide the neighbors of any node $u\in V$ into $\left(\log{d_u}+1\right)$ buckets if $p_j \in \left(\frac{1}{2^k}. \frac{1}{2^{k-1}} \right]$. 
+% 	% we put $v_j$ into the $k_{th}$ bucket $(k \in [1,\log{h}])$. 
+% 	The last bucket stores the elements whose sampling probability are less than $\frac{1}{d_u}$. 
+% 	%We set variable $i_k$ for the $k_{th}$ bucket, similar with variable $i$ in Algorithm~\ref{alg:subsampling}, to denote the ID of the last checked element. $i_k$ is initialized as $0$ for any $k \in [1,\log{h}+1]$. In each bucket, such as $\left(\frac{1}{2^k}, \frac{1}{2^{k-1}} \right]$ for $k \in [1,\log{h}]$ or $\left(0, \frac{1}{h} \right]$ for $k=\log{h}+1$, we first treat every element's sampling probability as $\frac{1}{2^{k-1}}$. Repeatedly generate the random number $r_k$ following the geometric distribution $G\left(\frac{1}{2^{k-1}}\right)$ until the sum of $r_k$ exceeds the number of elements in the $k_{th}$ bucket. In each iteration with the newly generated random $r_k$, skip to the element $x_{(i_k+r_k)}$ and add it to the sample set with probability $p_{(i_k+r_k)} \cdot 2^{k-1}$ to guarantee unbiasedness. Update $i_k$ as $i_k+r_k$ and move to the next iteration. 
+% 	%In each bucket, such as $\left(\frac{1}{2^k}, \frac{1}{2^{k-1}} \right]$ for $k \in [1,\log{h}]$ or $\left(0, \frac{1}{h} \right]$ for $k=\log{h}+1$, 
+% 	In each bucket such as $\left(\frac{1}{2^k}, \frac{1}{2^{k-1}} \right]$, we first identically treat the sampling probability of each node in the $k_{th}$ bucket as $\frac{1}{2^{k-1}}$. Generate a random number $r_k$ following the binomial distribution $B\left(h_k,\frac{1}{2^{k-1}}\right)$, where $h_k$ denotes the number of elements in the $k_{th}$ bucket. Then we pick $r_k$ elements uniformly and randomly from the $k_{th}$ bucket. Finally, we add these picked nodes to the set $S$ with probability $p \cdot 2^{k-1}$ to guarantee unbiasedness, where $p$ denotes the true sampling probability of this picked node. 
+ 	
+%  	Comparing Algorithm~\ref{alg:subsampling} with the new algorithm mentioned above, the time cost of Algorithm~\ref{alg:subsampling} can be bounded by the new algorithm. 
+%  	%they are quite similar except they treat the different probabilities to .  	%except the new algorithm divides all elements into buckets $\left(\frac{1}{2^k}, \frac{1}{2^{k-1}} \right]$, while Algorithm~\ref{alg:subsampling} uses geometric random numbers to automatically separate the elements. 
+%  	For any node $v_j \in S$ whose sampling probability $p_j$ satisfies $p_j \in \left(\frac{1}{2^k}, \frac{1}{2^{k-1}} \right]$, the new algorithm first samples $v_j$ with probability $\frac{1}{2^{k-1}}$, while Algorithm~\ref{alg:subsampling} samples $v_j$ with probability $p_x$ that $\frac{1}{2^{k-1}} \ge p_x \ge p_j$ actually. Thus, the expected number of sampling in the new algorithm is more than that in Algorithm~\ref{alg:subsampling}. %Hence, the time cost of Algorithm~\ref{alg:subsampling} can be bounded by the new algorithm. 
+ 
+ 
+%  	Analyzing the new algorithm, we first generate $O\left(\log{d_u} \right)$ binomial random numbers for each bucket, which cost $O\left(\log{d_u} \right)$. In each bucket such as $\left(\frac{1}{2^k}, \frac{1}{2^{k-1}} \right]$, we use $\frac{1}{2^{k-1}}$ to sample the elements whose sampling probability $p \in \left(\frac{1}{2^k}, \frac{1}{2^{k-1}} \right]$. Denote $\mu_k$ as the expected number of elements sampled from the $k_{th}$ bucket, and $r_k$ is the true sampling number in the $k_{th}$ bucket. $\mu_k \le \E \left[r_k \right]\le 2\mu_k$ because $p/ \frac{1}{2^{k-1}} \le 2$.  Hence, the expected total cost of the new algorithm can be bounded by 
+%  	$$O\left(\log{d_u} +\sum_{k=0}^{\log{d_u}} \E \left[r_k \right] \right)\le O\left(\log{h} +\sum_{k=0}^{\log{h}} 2\mu_k \right)=O\left(\log{d_u} +\mu \right).$$
+%  	The last equation use the fact that $\sum_{k=0}^{\log{d_u}} \mu_k=\mu$. Consequently, the time cost of Algorithm~\ref{alg:subsampling} can be bounded by $O\left(\log{d_u} +\mu \right)$, which follows the Theorem.
+% \end{proof}
+
+\subsection{Error analysis of GBP~\cite{chen2020GBP}}
+Recall that in the end of Section~\ref{sec:pre}, we mention that GBP~\cite{chen2020GBP} generalizes the propagation form as $\Z=\sum_{i=0}^L w_i \left(\D^{-(1-r)}\A \D^{-r}\right)^i\cdot \X$, and may amplify the estimation error by a factor of $d_u$ for $\forall u\in V$. According to Theorem 1 given in GBP~\cite{chen2020GBP}, for any node $u\in V$ and $\forall k=0,...,d-1$, GBP returns the estimated propagation result $\hat{\Z}(u,k)$, such that $\left|\hat{\Z}(u,k)-\Z(u,k)\right|\le d_u^r \cdot \e$ holds with the probability at least $1-\frac{1}{n}$. Hence, when $r=1$, the estimation error of GBP becomes $d_u \cdot \e$. Considering a complete graph $G$ with $n$ nodes, the error of GBP turns into $n \e$. 
+
+
+
+\subsection{Proof of Lemma~\ref{lem:unbiasedness}}\label{sec:unbiasedness}
+In the propagation from node $u$ at level $\ell-1$ to node $v \in N_u$ at level $\ell$, we use $X^{(\ell)}(u,v)$ to denote the increment of the estimated residue $\hat{\vec{r}}^{(\ell)}(v)$. According to Algorithm~\ref{alg:AGP-RQ}, $X^{(\ell)}(u,v)=\frac{Y_{\ell}}{Y_{\ell-1}}\cdot \frac{\hat{\vec{r}}^{(\ell-1)}(u)}{d_v^a\cdot d_u^b}$ if $\frac{Y_{\ell}}{Y_{\ell-1}}\cdot \frac{\hat{\vec{r}}^{(\ell-1)}(u)}{d_v^a\cdot d_u^b}\ge \e$; otherwise, $X^{(\ell)}(u,v)$ may be set as $\e$ with the probability $\frac{Y_{\ell}}{\e Y_{\ell-1}}\hspace{-0.5mm}\cdot \hspace{-0.5mm} \frac{\hat{\vec{r}}^{(\ell-1)}(u)}{d_v^a\cdot d_u^b}$, or $0$ with the probability $1\hspace{-0.5mm}-\hspace{-0.5mm}\frac{Y_{\ell}}{\e Y_{\ell-1}}\cdot \frac{\hat{\vec{r}}^{(\ell-1)}(u)}{d_v^a\cdot d_u^b}$. Hence, the conditional expectation of $X^{(\ell)}(u,v)$ based on the obtained vector $\hat{\vec{r}}^{(\ell-1)}$ can be expressed as 
+%Hence, we can derive the expectation of $X^{(\ell)}(u,v)$ conditioned on the vector of estimated residue $\hat{\vec{r}}^{(\ell-1)}$ as below. 
+\begin{equation}\nonumber
+%\label{eqn:incre2_expectation}
+%\vspace{-2mm}
+\begin{aligned}
+\hspace{-1mm} \E \left[ X^{(\ell)}(u,v) \mid \hat{\vec{r}}^{(\ell-1)} \right]
+&=\left\{
+\begin{array}{ll}
+\hspace{-2mm} \frac{Y_{\ell}}{Y_{\ell-1}}\cdot \frac{\hat{\vec{r}}^{(\ell-1)}(u)}{d_v^a\cdot d_u^b}, \quad if \frac{Y_{\ell}}{Y_{\ell-1}}\cdot \frac{\hat{\vec{r}}^{(\ell-1)}(u)}{d_v^a\cdot d_u^b}\ge \e\\
+\hspace{-1mm} \e\cdot \frac{1}{\e}\cdot \frac{Y_{\ell}}{Y_{\ell-1}}\cdot \frac{\hat{\vec{r}}^{(\ell-1)}(u)}{d_v^a\cdot d_u^b}, \quad otherwise
+\end{array} 
+\right.\\
+&= \frac{Y_{\ell}}{Y_{\ell-1}}\cdot \frac{\hat{\vec{r}}^{(\ell-1)}(u)}{d_v^a\cdot d_u^b}.
+\end{aligned}
+\end{equation}
+Note that we have $\hat{\vec{r}}^{(\ell)}(v)=\sum_{u \in N_v} X^{(\ell)}(u,v)$, following
+\begin{equation}\label{eqn:con-exp}
+\begin{aligned}
+&\E \hspace{-0.5mm} \left[ \hat{\vec{r}}^{(\ell)}(v)\mid \hat{\vec{r}}^{(\ell-1)} \right]%=\E \left[ \sum_{u \in N(v)} X^{(i+1)}(u,v) \mid \hat{\vec{r}}^{(i)} \right]\\
+\hspace{-1mm}=\hspace{-2mm}\sum_{u \in N_v} \hspace{-1mm}\E \hspace{-0.5mm}\left[ X^{(\ell)}(u,v) \mid \hat{\vec{r}}^{(\ell-1)} \right]\hspace{-1mm} =\hspace{-2mm}\sum_{u \in N_v} \hspace{-1.5mm}\frac{Y_{\ell}}{Y_{\ell-1}}\hspace{-0.5mm}\cdot \hspace{-0.5mm} \frac{\hat{\vec{r}}^{(\ell-1)}(u)}{d_v^a\cdot d_u^b}. 
+\end{aligned}
+\end{equation}
+The first equation uses the linearity of conditional expectation. It follows that
+\begin{equation}\nonumber%\label{eqn:proof-expectation}
+\begin{aligned}
+\E \left[ \hat{\vec{r}}^{(\ell)}(v) \right]=\E \left[\E \left[ \hat{\vec{r}}^{(\ell)}(v)\mid \hat{\vec{r}}^{(\ell-1)} \right]\right]=\hspace{-1mm} \sum_{u \in N_v} \frac{Y_{\ell}}{Y_{\ell-1}} \cdot \frac{\E \left[\hat{\vec{r}}^{(\ell-1)}(u)\right]}{d_v^a\cdot d_u^b}. 
+\end{aligned}
+\end{equation} 
+The first equality uses the fact that $\E \hspace{-0.5mm}\left[\hat{\vec{r}}^{(\ell)}(v) \right]\hspace{-0.5mm}=\hspace{-0.5mm}\E \hspace{-0.5mm}\left[\E \hspace{-0.5mm}\left[ \hat{\vec{r}}^{(\ell)}(v)\mid \hat{\vec{r}}^{(\ell-1)}\hspace{-0.5mm} \right]\hspace{-0.5mm}\right]$. 
+%By equation~\eqref{eqn:proof-expectation}, 
+Then we can derive the expectation of $\hat{\vec{r}}^{(\ell)}(v)$ by induction. Note that $\E \left[ \hat{\vec{r}}^{(0)}(u) \right]=\vec{r}^{(0)}(u)$ holds because $\hat{\vec{r}}^{(0)}=\vec{r}^{(0)}=\vec{x}$. Assuming $\E \left[ \hat{\vec{r}}^{(i)}(u) \right]=\vec{r}^{(i)}(u)$ holds for $\forall i \in [1,\ell-1]$ and $\forall u \in V$, the expectation of $\hat{\bm{r}}^{(\ell)}(v)$ can be expressed as %we can derive the unbiasedness of residues that
+\begin{equation}\nonumber
+%\vspace{-2mm}
+\begin{aligned}
+\E \left[ \hat{\vec{r}}^{(\ell)}(v) \right]\hspace{-1mm}=\hspace{-2mm}\sum_{u \in N_v}\hspace{-1.5mm} \frac{Y_{\ell}}{Y_{\ell-1}} \hspace{-0.5mm} \cdot \hspace{-0.5mm} \frac{\E \left[\hat{\vec{r}}^{(\ell-1)}(u)\right]}{d_v^a\cdot d_u^b}\hspace{-1mm}=\hspace{-2mm}\sum_{u \in N_v}\hspace{-1mm} \frac{Y_{\ell}}{Y_{\ell-1}}\hspace{-0.5mm} \cdot \hspace{-0.5mm}\frac{\vec{r}^{(\ell-1)}(u)}{d_v^a\cdot d_u^b}=\vec{r}^{(\ell)}(v). 
+\end{aligned}
+\end{equation} 
+The last equality uses the recursive formula that $\vec{r}^{(\ell)}\hspace{-0.5mm} =\hspace{-0.5mm} \frac{Y_{\ell}}{Y_{\ell-1}}\hspace{-0.5mm} \cdot \hspace{-0.5mm}\left(\mathbf{D}^{-a}\mathbf{A}\mathbf{D}^{-b} \right) \cdot \vec{r}^{(\ell-1)}$. 
+%\begin{equation}\nonumber
+%	\begin{aligned}
+%	\hspace{-0.5mm} \vec{r}^{(i+1)} 
+	%=Y_{i+1}  \cdot \left(\mathbf{D}^{-a}\hspace{-1mm}\cdot \mathbf{A}^\top \hspace{-1.5mm} \cdot \mathbf{D}^{-b}\right)^{i+1} \hspace{-2.5mm} \cdot \vec{x}
+%	= \frac{Y_{i+1}}{Y_i}\hspace{-0.5mm} \cdot \hspace{-0.5mm}\left(\mathbf{D}^{-a} \cdot \mathbf{A} \cdot \mathbf{D}^{-b} \right) \cdot \vec{r}^{(i)}. 
+%	\end{aligned}
+%\end{equation} 
+%For $\forall v \in V$ and $\forall u \in N(v)$, it follows that
+%\begin{equation}\nonumber
+%	\begin{aligned}
+%	\vec{r}^{(i+1)}(v) =\sum_{u \in N(v)} \frac{Y_{i+1}}{Y_i} \cdot \frac{\vec{r}^{(i)}(u)}{d_v^a\cdot d_u^b}. 
+%	\end{aligned}
+%\end{equation} 
+	
+Next we present the expectation analysis of the estimated reserve vector $\hat{\vec{q}}^{(\ell)}$ for $\forall \ell\in \{0,1,...,L\}$. Recall that for $\forall v \in V$, we set $\hat{\vec{q}}^{(\ell)}(v)=\frac{w_{\ell}}{Y_{\ell}}\cdot \hat{\vec{r}}^{(\ell)}(v)$ according to Algorithm~\ref{alg:AGP-RQ}. Hence, the expectation of $\hat{\vec{q}}^{(\ell)}(v)$ can be expressed as
+%\vspace{-2mm}
+\begin{equation}\nonumber%\label{eqn:unbiasedness-q}
+%\vspace{-1mm}
+\begin{aligned}
+\E \left[ \hat{\vec{q}}^{(\ell)}(v) \right]=\E \left[\frac{w_{\ell}}{Y_{\ell}}\cdot \hat{\vec{r}}^{(\ell)}(v) \right]=\frac{w_{\ell}}{Y_{\ell}}\cdot \vec{r}^{(\ell)}(v)=\vec{q}^{(\ell)}(v). 
+\end{aligned}
+\end{equation} 
+The first equality uses the fact that $\vec{q}^{(\ell)}(v)=\frac{w_{\ell}}{Y_{\ell}} \cdot \vec{r}^{(\ell)}(v)$, and the lemma follows. 
+
+
+
+
+\subsection{Proof of Lemma~\ref{lem:variance}}
+%Recall that in Algorithm~\ref{alg:AGP-RQ}, the propagation from node $u$ at level $i$ will be conducted deterministically if $\left(1-\frac{w_i}{Y_i} \right) \cdot \frac{\hat{R}^{(i)}(u)}{d^{1-r}_v\cdot d^r_u}\ge \delta$. Otherwise, the randomness exists. Let $X^{(i+1)}(u,v)$ denote the increment of residue $\hat{R}^{(i+1)}(v)$ in the propagation from node $u$ at level $i$ to its neighbor $v \in N(u)$ at level $i+1$. When $\left(1-\frac{w_i}{Y_i} \right) \cdot \frac{\hat{R}^{(i)}(u)}{d^{1-r}_v\cdot d^r_u}< \delta$, 
+%	\begin{equation}\nonumber
+%	\begin{aligned}
+%	X^{(i+1)}(u,v)
+%	&=\hspace{-1mm} \left\{
+%	\begin{array}{ll}
+%	\delta, \quad w.p. \quad \frac{1}{\delta}\cdot \left(1-\frac{w_i}{Y_i} \right) \cdot \frac{\hat{R}^{(i)}(u)}{d^{1-r}_v\cdot d^r_u};\\
+%	0, \quad w.p. \quad 1-\frac{1}{\delta}\cdot \left(1-\frac{w_i}{Y_i} \right) \cdot \frac{\hat{R}^{(i)}(u)}{d^{1-r}_v\cdot d^r_u},
+%	\end{array} 
+%	\right.\\
+%	\end{aligned}
+%	\end{equation}
+%where the notation $w.p.$ means "with the probability". Thus, the variance of $X^{(i+1)}(u,v)$ conditioned on the vector of estimated residue $\hat{R}^{(i)}$ can be derived that
+%\begin{equation}
+%	\begin{aligned}
+%		&\Var \left[ X^{(i+1)}(u,v) \mid \hat{R}^{(i)} \right] \le \E \left[ \left( X^{(i+1)}(u,v) \right)^2 \mid \hat{R}^{(i)} \right] \\
+%		& = \delta^2 \cdot \frac{1}{\delta} \cdot \left(1-\frac{w_i}{Y_i} \right) \cdot \frac{\hat{R}^{(i)}(u)}{d^{1-r}_v\cdot d^r_u} = \delta \cdot \left(1-\frac{w_i}{Y_i} \right) \cdot \frac{\hat{R}^{(i)}(u)}{d^{1-r}_v\cdot d^r_u}.
+%	\end{aligned}
+%\end{equation}
+%It follows that	
+
+For any $v \in V$ and $\ell \in \{0,1, ... , L\}$, we first prove 
+%\vspace{-2mm}
+\begin{equation}\label{eqn:eq1}
+%\vspace{-2mm}
+\Var \left[ \vec{\epi}(v) \right]= \sum_{\ell=1}^{L} \E \left[ \Var \left[\vec{z}^{(\ell)}(v)\mid \hat{\vec{r}}^{(0)},...,\hat{\vec{r}}^{(\ell-1)}\right]\right],
+\end{equation}
+where 
+%\vspace{-2mm}
+\begin{equation}\label{eqn:def-z}
+%\vspace{-2mm}
+\vec{z}^{(\ell)}(v)=\sum_{i=0}^{\ell-1} \frac{w_i}{Y_i}\hat{\vec{r}}^{(i)}(v)+ \sum_{i=\ell}^{L}\sum_{u \in V} \frac{w_i}{Y_{\ell}} \cdot \hat{\vec{r}}^{(\ell)}(u)\cdot p_{i-\ell}(u,v),     
+\end{equation}
+and $p_{i-\ell}(u,v)$ denotes the $(i-\ell)$-hop transition probability from node $u$ to node $v$,  corresponding to the $(u,v)$-th entry of the $(i-\ell)$-hop transition matrix $\left(\D^{-a} \A \D^{-b}\right)^{i-\ell}$. % that the random walk starting from $u$ reaches node $v$ at the $(i-\ell)$-th step.  
+%And $p_{i-\ell}(u,t)$ equals the $t_{th}$ entry of $\left(\mathbf{D}^{-(1-r)} \cdot \mathbf{A} \cdot \mathbf{D}^{-r} \right)^j \cdot \vec{e}_u$.
+Then we show 
+%\vspace{-2mm}
+\begin{equation}\label{eqn:eq2}
+%\vspace{-1mm}
+\E \left[ \Var \left[\vec{z}^{(\ell)}(v)\mid \hat{\vec{r}}^{(0)},...,\hat{\vec{r}}^{(\ell-1)}\right]\right] \hspace{-1mm} \le \e \vec{\pi}(v),     
+\end{equation}
+following $\Var\left[\epi(v)\right]\le L \cdot \e \vpi(v)$.  
+
+\header{\bf Proof of Equation~\eqref{eqn:eq1}. } 
+For $\forall v\in V$, we can rewrite $\z^{(L)}(v)$ as
+%\vspace{-2mm}
+\begin{equation}\nonumber
+%\vspace{-1mm}
+    \vec{z}^{(L)}(v)=\sum_{i=0}^{L-1} \frac{w_i}{Y_i}\hat{\vec{r}}^{(i)}(v)+ \sum_{u \in V} \frac{w_L}{Y_{L}} \cdot \hat{\vec{r}}^{(L)}(u)\cdot p_{0}(u,v). 
+\end{equation}
+Note that the $0$-hop transition probability satisfies: $p_0(v,v)=1$ and $p_0(u,v)=0$ for each $u \neq v$, following: 
+%\vspace{-2mm}
+\begin{equation}\nonumber
+%\vspace{-1mm}
+\z^{(L)}(v)=\sum_{i=0}^L \frac{w_i}{Y_i}\er^{(i)}(v)=\sum_{i=0}^L \eq^{(i)}(v)=\epi(v).     
+\end{equation}
+The second and last equality use the fact:  $\frac{w_i}{Y_i}\er^{(i)}(v)\hspace{-0.5mm}=\hspace{-0.5mm}\eq^{(i)}(v)$, and $\sum_{i=0}^L \eq^{(i)}(v)\hspace{-0.8mm}=\hspace{-0.8mm}\epi(v)$, respectively. 
+%Thus, $z^{(L)}(v)=\sum_{i=0}^L \hat{\vec{r}}(v)$ beacuse $\sum_{u \in V} \frac{w_L}{Y_{L}} \cdot \hat{\vec{r}}^{(L)}(u)\cdot p_{0}(u,v)= \frac{w_L}{Y_{L}} \cdot \hat{\vec{r}}^{(L)}(v)$. Recall that in Algorithm~\ref{alg:AGP-RQ}, we return $\sum_{i=0}^L \hat{\vec{q}}^{(i)}$ as the estimator of $\pi$. Thus, 
+%\begin{equation}\label{eqn:variance-sum}
+%	\begin{aligned}
+%		\Var \left[ \vec{\epi}(v) \right]\hspace{-0.5mm}= \Var \left[ \sum_{i=0}^{L} \hat{\vec{q}}^{(\ell)}(v)\right] = \Var \left[ \sum_{i=0}^{L} \frac{w_i}{Y_i}\hat{\vec{r}}^{(i)}(v)\right]
+%		=\Var \left[\vec{z}^{(L)}(v) \right]. 
+%	\end{aligned}
+%\end{equation}
+    %The last equation uses the fact that $p_0(v,v)=1$ and $\sum_{u \in V} \frac{w_i}{Y_{\ell}} \cdot \hat{\vec{r}}^{(\ell)}(u)\cdot p_{i-\ell}(u,v)=\frac{w_i}{Y_{\ell}}\cdot \hat{\vec{r}}^{(\ell)}(v)$. 
+Thus, $\Var[\z^{(L)}(v)]\hspace{-0.8mm}=\hspace{-0.8mm}\Var[\epi(v)]$. The goal to prove Equation~\eqref{eqn:eq1} is equivalent to show 
+%\vspace{-2mm}
+\begin{equation}\label{eqn:sameEq1}
+%\vspace{-1mm}
+\Var[\z^{(L)}(v)]= \sum_{\ell=1}^{L} \E \left[ \Var \left[\vec{z}^{(\ell)}(v)\mid \hat{\vec{r}}^{(0)},...,\hat{\vec{r}}^{(\ell-1)}\right]\right]. 
+\end{equation}
+By the total variance law, $\Var[\z^{(L)}(v)]$ can be expressed as
+%\vspace{-2mm}
+\begin{equation}\label{eqn:var-1}
+%\vspace{-2mm}
+\begin{aligned}
+\Var \left[ \vec{z}^{(L)}(v)\right]
+&= \E \left[ \Var \left[\vec{z}^{(L)}(v) \mid \hat{\vec{r}}^{(0)},\hat{\vec{r}}^{(1)},...,\hat{\vec{r}}^{(L-1)}\right]\right]\\
+&+\Var \left[ \E \left[\vec{z}^{(L)}(v) \mid \hat{\vec{r}}^{(0)},\hat{\vec{r}}^{(1)},...,\hat{\vec{r}}^{(L-1)}\right] \right]. 
+\end{aligned}
+\end{equation}
+Note that the first term of Equation~\eqref{eqn:var-1} $\E \hspace{-0.5mm}\left[\hspace{-0.5mm} \Var \hspace{-0.5mm}\left[\hspace{-0.5mm}\vec{z}^{(L)}(v) \hspace{-1mm}\mid \hspace{-1mm} \hat{\vec{r}}^{(0)}\hspace{-1.5mm},...,\hat{\vec{r}}^{(L-1)}\hspace{-1mm}\right]\hspace{-0.5mm}\right]$ belongs to the final summation in Equation~\eqref{eqn:sameEq1}. To prove Equation~\eqref{eqn:sameEq1}, we will further disassemble the second term of Equation~\eqref{eqn:var-1} $\Var \left[ \E \left[\vec{z}^{(L)}(v) \mid \hat{\vec{r}}^{(0)},...,\hat{\vec{r}}^{(L-1)}\right] \right]$ in the form of $\E[\Var[.]]$. For $\forall \ell \in \{0,1,...,L\}$, considering $ \E \left[\vec{z}^{(\ell)}(v) \mid \hat{\vec{r}}^{(0)},\hat{\vec{r}}^{(1)},...,\hat{\vec{r}}^{(\ell-1)}\right] $, we have
+%Applying the linearity of conditional expectation, we have %for each $\ell \in \{0,1, 2, ... , L\}$, 
+\begin{equation}\label{eqn:var-total-1}
+\begin{aligned}
+&\E \left[\vec{z}^{(\ell)}(v) \mid \hat{\vec{r}}^{(0)},...,\hat{\vec{r}}^{(\ell-1)}\right]\\
+&\hspace{-1mm}=\hspace{-1mm}\E \left[\left( \sum_{i=0}^{\ell-1} \hspace{-0.5mm}\frac{w_i}{Y_i}\hat{\vec{r}}^{(i)}(v)\hspace{-0.5mm}+\hspace{-0.5mm} \sum_{i=\ell}^{L}\sum_{u \in V}\hspace{-0.5mm} \frac{w_i}{Y_{\ell}}\hspace{-0.5mm} \cdot \hspace{-0.5mm} \hat{\vec{r}}^{(\ell)}(u)\hspace{-0.5mm}\cdot \hspace{-0.5mm} p_{i-\ell}(u,v)\right) \mid \hat{\vec{r}}^{(0)}\hspace{-1mm},...,\hat{\vec{r}}^{(\ell-1)}\right]\\
+&\hspace{-1mm}=\hspace{-1.5mm}\sum_{i=0}^{\ell-1} \frac{w_i}{Y_i}\hat{\vec{r}}^{(i)}(v)+ \hspace{-1mm}\sum_{i=\ell}^{L}\sum_{u \in V} \frac{w_i}{Y_{\ell}} \cdot p_{i-\ell}(u,v) \cdot \E \left[\hat{\vec{r}}^{(\ell)}(u) \mid \hat{\vec{r}}^{(0)},...,\hat{\vec{r}}^{(\ell-1)}\right]. 
+\end{aligned}
+\end{equation}
+The first equality uses the definition equation~\eqref{eqn:def-z} of $\z^{\ell}(v)$, and the second equality uses the fact $\E \left[\sum_{i=0}^{\ell-1} \frac{w_i}{Y_i}\hat{\vec{r}}^{(i)}(v) \mid \hat{\vec{r}}^{(0)},...,\hat{\vec{r}}^{(\ell-1)}\right]= \sum_{i=0}^{\ell-1} \frac{w_i}{Y_i}\hat{\vec{r}}^{(i)}(v)$ and the linearity of conditional expectation. By Equation~\eqref{eqn:con-exp}, we have 
+%\vspace{-1mm}
+\begin{equation}\nonumber
+%\vspace{-1mm}
+\begin{aligned}
+&\E \left[\er^{(\ell)}(u) \mid \er^{(0)},...,\er^{(\ell-1)}\right]=\E \left[\er^{(\ell)}(u) \mid \er^{(\ell-1)}\right]\\
+&=\sum_{w \in N_u} \frac{Y_{\ell}}{Y_{\ell-1}} \cdot \frac{\hat{\vec{r}}^{(\ell-1)}(w)}{d_u^a\cdot d_w^b}
+=\sum_{w \in N_u}\frac{Y_{\ell}}{Y_{\ell-1}} \cdot \hat{\vec{r}}^{(\ell-1)}(w)\cdot p_1(w,u),      
+\end{aligned}
+%\vspace{-1mm}
+\end{equation}
+where the $1$-hop transition probability $p_1(w,u)=\frac{1}{d_u^a\cdot d_w^b}$. 
+Thus, the second term of Equation~\eqref{eqn:var-total-1} can be further expressed as
+\vspace{-2mm}
+\begin{equation}\label{eqn:r-l1}
+\begin{aligned}
+&\sum_{i=\ell}^{L}\sum_{u \in V} \frac{w_i}{Y_{\ell}} \cdot p_{i-\ell}(u,v) \cdot \E \left[\hat{\vec{r}}^{(\ell)}(u) \mid \hat{\vec{r}}^{(0)},...,\hat{\vec{r}}^{(\ell-1)}\right]\\
+&=\sum_{i=\ell}^{L}\sum_{w \in V}\sum_{u \in N_w} \frac{w_i}{Y_{\ell}} \cdot \frac{Y_{\ell}}{Y_{\ell-1}} \cdot \hat{\vec{r}}^{(\ell-1)}(w)\cdot p_{i-\ell}(u,v) \cdot p_1(w,u)\\
+&=\sum_{i=\ell}^{L}\sum_{w \in V} \frac{w_i}{Y_{\ell-1}}\hat{\vec{r}}^{(\ell-1)}(w)\cdot p_{i-\ell+1}(w,v). 
+\end{aligned}
+\end{equation}
+In the last equality, we use the property of transition probability that $\sum_{u \in N_w}p_{i-\ell}(u,v)\cdot p_1(w,u)=p_{i-\ell+1}(w,v)$. By plugging Equation~\eqref{eqn:r-l1} into Equation~\eqref{eqn:var-total-1}, we have
+\begin{equation}\label{eqn:var-total-2}
+\begin{aligned}
+&\E \left[\vec{z}^{(\ell)}(v) \mid \hat{\vec{r}}^{(0)},...,\hat{\vec{r}}^{(\ell-1)}\right]\\
+&=\sum_{i=0}^{\ell-1} \frac{w_i}{Y_i}\hat{\vec{r}}^{(i)}(v)+\sum_{i=\ell}^{L}\sum_{w \in V} \frac{w_i}{Y_{\ell-1}}\hat{\vec{r}}^{(\ell-1)}(w)\cdot p_{i-\ell+1}(w,v)\\
+&=\hspace{-1mm}\sum_{i=0}^{\ell-2} \frac{w_i}{Y_i}\hat{\vec{r}}^{(i)}(v)+ \hspace{-1mm}\sum_{i=\ell-1}^{L}\sum_{u \in V} \frac{w_i}{Y_{\ell}} \hat{\vec{r}}^{(\ell-1)}(u) \cdot p_{i-\ell+1}(u,v)
+=\vec{z}^{(\ell-1)}(v), 
+\end{aligned}
+\end{equation}
+where we use the fact that
+\begin{equation}\nonumber
+\begin{aligned}
+&\sum_{i=\ell}^{L}\sum_{w \in V} \frac{w_i}{Y_{\ell-1}}\hat{\vec{r}}^{(\ell-1)}(w)\cdot p_{i-\ell+1}(w,v)\\
+&=\hspace{-2mm}\sum_{i=\ell-1}^{L}\sum_{u \in V} \frac{w_i}{Y_{\ell-1}}\hat{\vec{r}}^{(\ell-1)}(u)\cdot p_{i-\ell+1}(u,v)\hspace{-0.5mm}-\hspace{-2mm}\sum_{u\in V}\hspace{-1mm}\frac{w_{\ell-1}}{Y_{\ell-1}}\er^{(\ell-1)}(u)\cdot p_0(u,v). 
+\end{aligned}
+\end{equation}
+The last equality also uses the properties of $0$-hop transition probability:  $p_0(v,v)=1$, and  $p_0(u,v)=0$ if $u \neq v$. By plugging Equation\eqref{eqn:var-total-2} into Equation~\eqref{eqn:var-1}, we have
+\begin{equation}\nonumber%\label{eqn:var-2}
+	\begin{aligned}
+		\Var \left[ \vec{z}^{(L)}(v)\right]
+		= \E \left[ \Var \left[\vec{z}^{(L)}(v) \mid \hat{\vec{r}}^{(0)},...,\hat{\vec{r}}^{(L-1)}\right]\right]
+		\hspace{-0.5mm}+\hspace{-0.5mm}\Var \left[ \vec{z}^{(L-1)}(v) \right]. 
+	\end{aligned}
+\end{equation}
+We can repeat applying the total variance law to $\Var \left[ \vec{z}^{(L-1)}(v) \right]$ conditioned on the set $\{\hat{\vec{r}}^{(0)},\hat{\vec{r}}^{(1)},...,\hat{\vec{r}}^{(L-2)}\}$. Then $\Var \left[\vec{z}^{(L-1)}(v)\right]$ can be similarly expressed as
+\begin{equation}\nonumber
+\begin{aligned}
+\hspace{-1mm}\Var \left[\vec{z}^{(L-1)}(v)\right]\hspace{-1mm}=\hspace{-1mm}\E \hspace{-0.5mm} \left[\hspace{-0.5mm} \Var \hspace{-0.5mm}\left[\hspace{-0.5mm} \vec{z}^{(L-1)}(v) \mid \hat{\vec{r}}^{(0)},...,\hat{\vec{r}}^{(L-2)}\hspace{-0.5mm}\right]\hspace{-0.5mm}\right]\hspace{-1mm}+\hspace{-1mm}\Var \hspace{-0.5mm}\left[\hspace{-0.5mm} \vec{z}^{(L-2)}(v)\hspace{-0.5mm}\right], 
+\end{aligned}
+\end{equation}
+following $\Var \left[ \vec{z}^{(L)}(v)\right]\hspace{-1mm}=\hspace{-1mm}\sum_{\ell=L-1}^L \E \left[\Var \left[\vec{z}^{(\ell)}(v)\mid \hat{\vec{r}}^{(0)},...,\hat{\vec{r}}^{(\ell-1)}\right]\right]+\Var [\z^{L-2}(v)]$. By iterating the above process, we can finally express $\Var \left[ \vec{z}^{(L)}(v)\right]$ as: 
+\vspace{-2mm}
+\begin{equation}\nonumber
+\vspace{-2mm}
+\Var \left[ \vec{z}^{(L)}(v)\right]
+\hspace{-1mm}=\hspace{-1mm}\sum_{\ell=1}^{L}\E \left[\Var \left[\vec{z}^{(\ell)}(v)\mid \hat{\vec{r}}^{(0)},...,\hat{\vec{r}}^{(\ell-1)}\right]\right]+\Var [\z^{(0)}(v)]. 
+%&+\Var\left[ \sum_{i=0}^{L}\sum_{u \in V} \frac{w_i}{Y_{0}} \cdot \hat{\vec{r}}^{(0)}(u)\cdot p_{i}(u,v) \right]. 
+\end{equation}
+Note that $\Var [\z^{(0)}(v)]=\Var\left[ \sum_{i=0}^{L}\sum_{u \in V} \frac{w_i}{Y_{0}} \cdot \hat{\vec{r}}^{(0)}(u)\cdot p_{i}(u,v) \right]$. Because, $\hat{\vec{r}}^{(0)}$ is set as $\hat{\vec{r}}^{(0)}=\vec{r}^{(0)}=\vec{x}$ deterministically, following the variance 
+$\Var\left[ \sum_{i=0}^{L}\sum_{u \in V} \frac{w_i}{Y_{0}} \cdot \hat{\vec{r}}^{(0)}(u)\cdot p_{i}(u,v) \right]\hspace{-1mm}=\hspace{-1mm}0$. Consequently, 
+\vspace{-3mm}
+\begin{equation}\nonumber
+\vspace{-2mm}
+\Var \left[ \vec{z}^{(L)}(v)\right]=\sum_{\ell=1}^{L}\E \left[\Var \left[\vec{z}^{(\ell)}(v)\mid \hat{\vec{r}}^{(0)},...,\hat{\vec{r}}^{(\ell-1)}\right]\right],     
+\end{equation}
+which follows Equation~\eqref{eqn:sameEq1}, equivalent to Equation~\eqref{eqn:eq1}. 
+
+
+
+\header{\bf Proof of Equation~\eqref{eqn:eq2}. } 
+In this part, we present the proof: 
+\vspace{-1mm}
+\begin{equation}\nonumber
+\vspace{-1mm}
+\E \left[\Var \left[\vec{z}^{(\ell)}(v)\mid \hat{\vec{r}}^{(0)},...,\hat{\vec{r}}^{(\ell-1)}\right]\right]\le \e \vec{\pi}(v), 
+\end{equation}
+for $\ell \hspace{-0.8mm}\in \hspace{-0.8mm} \{1,...,L\}$ and $\forall v \hspace{-0.5mm}\in \hspace{-0.5mm}V$. Recall that we set $ \vec{z}^{(\ell)}(v)\hspace{-0.8mm}=\hspace{-0.8mm}\sum_{i=0}^{\ell-1}\hspace{-0.5mm} \frac{w_i}{Y_i}\hat{\vec{r}}^{(i)}(v)+ \sum_{i=\ell}^{L}\sum_{u \in V} \frac{w_i}{Y_{\ell}} \cdot \hat{\vec{r}}^{(\ell)}(u)\cdot p_{i-\ell}(u,v)$. Thus, the goal is equivalent to bound the expectation of 
+\vspace{-2mm}
+\begin{equation}\label{eqn:goal1}
+\vspace{-1mm}
+\Var \left[\left(\sum_{i=0}^{\ell-1} \hspace{-0.5mm}\frac{w_i}{Y_i}\hat{\vec{r}}^{(i)}(v)\hspace{-0.5mm}+\hspace{-1mm}\sum_{i=\ell}^{L}\sum_{u \in V}\hspace{-0.5mm} \frac{w_i}{Y_{\ell}}\hspace{-0.5mm} \cdot \hspace{-0.5mm} \hat{\vec{r}}^{(\ell)}(u)\hspace{-0.5mm}\cdot \hspace{-0.5mm} p_{i-\ell}(u,v)\right)\hspace{-0.5mm} \mid \hspace{-0.5mm} \hat{\vec{r}}^{(0)}\hspace{-1mm},...,\hat{\vec{r}}^{(\ell-1)}\right]. 
+\end{equation}
+Recall that in the proof of Lemma~\ref{lem:unbiasedness}(in Section~\ref{sec:unbiasedness}), we use  $X^{(\ell)}(w,u)$ to denote the increment of $\hat{\vec{r}}^{(\ell)}(u)$ in the propagation from node $w$ at level $\ell-1$ to $u \in N(w)$ at level $\ell$. According to Algorithm~\ref{alg:AGP-RQ}, given the obtained $\{\hat{\vec{r}}^{(0)}\hspace{-1mm},...,\hat{\vec{r}}^{(\ell-1)}\}$, we introduce subset sampling to guarantee the independence among all $X^{(\ell)}(w,u)$ at level $\ell$ for $\forall w,u \in V$. Furthermore, based on the obtained $\{\hat{\vec{r}}^{(0)}\hspace{-1mm},...,\hat{\vec{r}}^{(\ell-1)}\}$, $\hat{\vec{r}}^{(\ell)}(u)=\sum_{w \in N(u)} X^{(\ell)}(w,u)$ is also independent to every $\er^{(i)}(v)$ for $\forall i \in \{0,...,\ell-1\}$. Thus, Equation~\eqref{eqn:goal1} can be expressed as
+\vspace{-2mm}
+\begin{equation}\nonumber
+\vspace{-2mm}
+\begin{aligned}
+&\Var \left[\sum_{i=0}^{\ell-1} \frac{w_i}{Y_i}\hat{\vec{r}}^{(i)}(v)\mid  \hat{\vec{r}}^{(0)},...,\hat{\vec{r}}^{(\ell-1)}\right]\\
+&+\Var \left[\sum_{i=\ell}^{L}\sum_{u \in V} \frac{w_i}{Y_{\ell}}\cdot  \hat{\vec{r}}^{(\ell)}(u)\cdot  p_{i-\ell}(u,v)\mid  \hat{\vec{r}}^{(0)},...,\hat{\vec{r}}^{(\ell-1)}\right]. 
+\end{aligned}
+\end{equation}
+By the fact that $\Var \left[ \sum_{i=0}^{\ell-1}\frac{w_i}{Y_i}\hat{\vec{r}}^{(i)}(v)\mid \hat{\vec{r}}^{(0)},...,\hat{\vec{r}}^{(\ell-1)}\right]=0$, we can further express the goal as the bound of the expectation of 
+\vspace{-2mm}
+\begin{equation}\label{eqn:goal2}
+\vspace{-2mm}
+\Var \left[\sum_{i=\ell}^{L}\sum_{u \in V} \frac{w_i}{Y_{\ell}}\cdot  \hat{\vec{r}}^{(\ell)}(u)\cdot  p_{i-\ell}(u,v)\mid  \hat{\vec{r}}^{(0)},...,\hat{\vec{r}}^{(\ell-1)}\right]. 
+%=\sum_{i=\ell}^{L} \sum_{u \in V}\left( \frac{w_i}{Y_{\ell}} \cdot p_{i-\ell}(u,v) \right)^2\Var \left[ \hat{\vec{r}}^{(\ell)}(u)\mid \hat{\vec{r}}^{(\ell-1)}\right].
+\end{equation}
+Plugging $\hat{\vec{r}}^{(\ell)}(u)=\sum_{w \in N(u)} X^{(\ell)}(w,u)$ into Equation~\eqref{eqn:goal2}, the goal to be bounded can be expressed as the expectation of
+\vspace{-1mm}
+\begin{equation}\label{eqn:goal3}
+\begin{aligned}
+&\Var \left[\sum_{i=\ell}^{L}\sum_{u \in V} \sum_{w \in N(u)}\frac{w_i}{Y_{\ell}}\cdot p_{i-\ell}(u,v) \cdot X^{(\ell)}(w,u)\mid  \hat{\vec{r}}^{(0)},...,\hat{\vec{r}}^{(\ell-1)}\right]\\
+&=\sum_{i=\ell}^{L}\sum_{u \in V} \sum_{w \in N(u)}\hspace{-2mm}\Var \left[\frac{w_i}{Y_{\ell}}\cdot p_{i-\ell}(u,v) \cdot X^{(\ell)}(w,u)\mid  \hat{\vec{r}}^{(0)},...,\hat{\vec{r}}^{(\ell-1)}\right], 
+\end{aligned}
+\end{equation}
+where we use the independence of $X^{(\ell)}(w,u)$ for $\forall w,u\in V$, based on the obtained $\{\hat{\vec{r}}^{(0)}\hspace{-1mm},...,\hat{\vec{r}}^{(\ell-1)}\}$. Recall that in Algorithm~\ref{alg:AGP-RQ}, if $\frac{Y_{\ell}}{Y_{\ell-1}}\cdot \frac{\hat{\vec{r}}^{(\ell-1)}(w)}{d_u^a\cdot d_w^b}< \e$, $X^{(\ell)}(w,u)$ is increased by $\e$ with the probability $\frac{Y_{\ell}}{\e \cdot Y_{\ell-1}}\cdot \frac{\hat{\vec{r}}^{(\ell-1)}(w)}{d_u^a\cdot d_w^b}$, or $0$ otherwise. Thus, the variance of $X^{(\ell)}(w,u)$ conditioned on the obtained estimated vector $\hat{\vec{r}}^{(\ell-1)}$ can be bounded by
+\vspace{-3mm}
+\begin{equation}\label{eqn:tmp1}
+\vspace{-1mm}
+\begin{aligned}
+&\Var \left[X^{(\ell)}(w,u) \mid \hat{\vec{r}}^{(\ell-1)} \right] 
+\le \E \left[ \left(X^{(\ell)}(w,u)  \right)^2 \mid \hat{\vec{r}}^{(\ell-1)} \right]\\
+&\hspace{-1mm}=\e^2 \cdot \frac{1}{\e} \cdot \frac{Y_{\ell}}{Y_{\ell-1}} \cdot \frac{\hat{\vec{r}}^{(\ell-1)}(w)}{d_u^a\cdot d_w^b}
+%=\frac{\delta \cdot Y_{i+1}}{Y_i} \cdot \frac{\hat{\vec{r}}^{(i)}(u)}{d_v^a\cdot d_u^b}
+=\e \cdot \frac{Y_{\ell}}{Y_{\ell-1}} \cdot \hat{\vec{r}}^{(\ell-1)}(w) \cdot p_1(w,u), 
+\end{aligned}
+\end{equation}
+where $p_1(w,u)=\frac{1}{d_u^a\cdot d_w^b}$ denotes the 1-hop transition probability. Plugging~\eqref{eqn:tmp1} into Equation~\eqref{eqn:goal3}, the goal changes to bound the expectation of
+\vspace{-2mm}
+\begin{equation}\label{eqn:goal4}
+\begin{aligned}
+&\sum_{i=\ell}^{L}\sum_{u \in V} \sum_{w \in N(u)}\left(\frac{w_i}{Y_{\ell}}\cdot p_{i-\ell}(u,v) \right)^2\cdot \e \cdot \frac{Y_{\ell}}{Y_{\ell-1}} \cdot \hat{\vec{r}}^{(\ell-1)}(w) \cdot p_1(w,u)\\
+&\le \sum_{i=\ell}^{L}\sum_{w \in V} \frac{\e\cdot w_i}{Y_{\ell-1}}\cdot \hat{\vec{r}}^{(\ell-1)}(v)\cdot p_{i-\ell+1}(w,v), 
+\end{aligned}
+\end{equation}
+where we use the property of transition probability: $\sum_{w\in N_u} p_{i-\ell}(u,v)\cdot p_1(w,u)=p_{i-\ell+1}(w,v)$. Consequently, the expectation of Equation~\eqref{eqn:goal4} is: 
+\vspace{-2mm}
+\begin{equation}\label{eqn:goal5}
+\begin{aligned}
+&\E \left[\sum_{i=\ell}^{L}\sum_{w \in V} \frac{\e\cdot w_i}{Y_{\ell-1}}\cdot \hat{\vec{r}}^{(\ell-1)}(w) \cdot p_{i-\ell+1}(w,v)\right]\\
+&=\sum_{i=\ell}^{L}\sum_{w \in V} \frac{\e\cdot w_i}{Y_{\ell-1}}\cdot \r^{(\ell-1)}(w)\cdot p_{i-\ell+1}(w,v)
+=\sum_{i=\ell}^{L} \e \cdot \q^{(i)}(v) \le \e \vpi(v).  
+\end{aligned}
+\end{equation}
+The first equality uses the linearity of expectation and the unbiasedness of $\hat{\vec{r}}^{(\ell-1)}(w)$ proved in Lemma~\ref{lem:unbiasedness}. The second equality uses the definition of $\r^{i}(v)$ and $\q^{i}(v)$ (shown in Definition~\ref{def:RQ-relation}), and the definition of $p_{i-\ell+1}(w,v)$ which corresponds to the $(w,v)$-th entry of the transition matrix $\left( \D^{-a} \A \D^{-b}\right)^{i-\ell+1}$: 
+\vspace{-2mm}
+\begin{equation}\nonumber
+\vspace{-1mm}
+\begin{aligned}
+&\hspace{-1.5mm}\sum_{w \in V}\hspace{-1mm}\frac{w_i}{Y_{\ell-1}}\r^{(\ell-1)}\hspace{-0.5mm}(w)\hspace{-0.5mm}\cdot \hspace{-0.5mm} p_{i-\ell+1}(w,v)\hspace{-1mm}=\hspace{-0.5mm}w_i\hspace{-0.5mm}\cdot \hspace{-2.5mm}\sum_{w \in V}\hspace{-1mm} \left[\hspace{-0.5mm}\left(\D^{-a} \A \D^{-b}\right)^{\ell-1}\hspace{-4.5mm}\cdot \hspace{-0.5mm} \bm{x}\right]_w \hspace{-2mm}\hspace{-0.5mm}\cdot \hspace{-0.5mm} p_{i-\ell+1}(w,v)\\
+&=w_i\cdot \left[\left(\D^{-a} \A \D^{-b}\right)^{i}\cdot \bm{x}\right]_v=\frac{w_i}{Y_i}\r^{(i)}(v)=\q^{(i)}(v). 
+\end{aligned}
+\end{equation}
+
+Reviewing the above proof, we want to show Equation~\eqref{eqn:eq2} holds: 
+\vspace{-2mm}
+\begin{equation}\nonumber
+\vspace{-2mm}
+\E \left[\Var \left[\vec{z}^{(\ell)}(v)\mid \hat{\vec{r}}^{(0)},...,\hat{\vec{r}}^{(\ell-1)}\right]\right]\le \e \vec{\pi}(v). 
+\end{equation}
+We have proved that $\Var \left[\vec{z}^{(\ell)}(v)\mid \hat{\vec{r}}^{(0)},...,\hat{\vec{r}}^{(\ell-1)}\right]$ can be bounded by $\sum_{i=\ell}^{L}\sum_{w \in V} \frac{\e\cdot w_i}{Y_{\ell-1}}\cdot \hat{\vec{r}}^{(\ell-1)}(v)\cdot p_{i-\ell+1}(w,v)$ (shown in Equation~\eqref{eqn:goal1}, \\~\eqref{eqn:goal2}, ~\eqref{eqn:goal3}, and ~\eqref{eqn:goal4}). Then, Equation~\eqref{eqn:goal5} presents the bound of the expectation $\E \left[\sum_{i=\ell}^{L}\sum_{w \in V} \frac{\e\cdot w_i}{Y_{\ell-1}}\cdot \hat{\vec{r}}^{(\ell-1)}(v)\cdot p_{i-\ell+1}(w,v)\right]$. Thus, the lemma follows. 
+
+
+%Due to $\hat{\vec{r}}^{(\ell)}(v)=\sum_{u \in N(v)} X^{(\ell)}(u,v)$, it follows that %As for node $v$ at level $i+1$, the propagation received from its neighbors $u\in N(v)$ is independent because Algorithm~\ref{alg:AGP-RQ} conducts subset sampling for each node $u$ independently. Thus, 
+%\begin{equation}\label{eqn:variance-RP}
+%	\begin{aligned}
+%		&\Var \left[\hat{\vec{r}}^{(\ell)}(v)\mid \hat{\vec{r}}^{(\ell-1)} \right]
+%		=\Var \left[\left( \sum_{u\in N(v)} X^{(\ell)}(u,v) \right)\mid \hat{\vec{r}}^{(\ell-1)} \right]\\
+%		&=\hspace{-2mm}\sum_{u\in N(v)}\hspace{-2mm}\Var \left[X^{(\ell)}(u,v) \mid \hat{\vec{r}}^{(\ell-1)} \right]
+%		=\e \cdot \hspace{-2mm}\hspace{-2mm}\sum_{u\in N(v)}\hspace{-1mm} \frac{Y_{\ell}}{Y_{\ell-1}} \cdot \hat{\vec{r}}^{(\ell-1)}(u) \cdot p_1(u,v).
+%	\end{aligned}
+%\end{equation}
+%The second equation is based on the independence of every increment $X^{(\ell)}(u,v)$ by subset sampling. Furthermore, we can also derive $\Var \left[\sum_{u \in V}  \hat{\vec{r}}^{(\ell)}(u) \mid \hat{\vec{r}}^{(\ell-1)}\right]=\sum_{u \in V} \Var \left[ \hat{\vec{r}}^{(\ell)}(u) \mid \hat{\vec{r}}^{(\ell-1)}\right]$ by the independence of $X^{(\ell)}(u,v)$. %Because every sampling in any propagation is independent according to Theorem~\ref{thm:subsampling}, we have .
+%Thus, 
+%\begin{equation}\nonumber
+%	\begin{aligned}
+%		&\Var \left[\sum_{i=\ell}^{L}\sum_{u \in V} \frac{w_i}{Y_{\ell}} \cdot \hat{\vec{r}}^{(\ell)}(u)\cdot p_{i-\ell}(u,v)\mid \hat{\vec{r}}^{(0)},...,\hat{\vec{r}}^{(\ell-1)}\right]\\
+		%&\le (L-\ell+1) \sum_{i=\ell}^{L} \sum_{u \in V}\left( \frac{w_i}{Y_{\ell}} \cdot p_{i-\ell}(u,v) \right)^2\Var \left[ \hat{\vec{r}}^{(\ell)}(u)\mid \hat{\vec{r}}^{(\ell-1)}\right].
+%		&\le \sum_{i=\ell}^{L} \sum_{u \in V}\left( \frac{w_i}{Y_{\ell}} \cdot p_{i-\ell}(u,v) \right)^2\Var \left[ \hat{\vec{r}}^{(\ell)}(u)\mid \hat{\vec{r}}^{(\ell-1)}\right].
+%	\end{aligned}
+%\end{equation}
+    %By equation~\eqref{eqn:variance-RP} that $\Var \left[ \hat{\vec{r}}^{(\ell)}(u)\mid \hat{\vec{r}}^{(\ell-1)}\right] = \frac{\delta \cdot Y_\ell}{Y_{\ell-1}} \cdot \hspace{-3mm} \sum\limits_{w\in N(u)}\hspace{-3mm}\hat{\vec{r}}^{(\ell-1)}(w)\cdot p_1(w,u)$. 
+%By equation~\eqref{eqn:variance-RP}, %we have $\Var \left[ \hat{\vec{r}}^{(\ell)}(u)\mid \hat{\vec{r}}^{(\ell-1)}\right]=\e \cdot \sum_{u\in N(v)} \frac{Y_{\ell}}{Y_{\ell-1}} \cdot \hat{\vec{r}}^{(\ell-1)}(u) \cdot p_1(u,v)$, following
+%it follows that
+%\begin{equation}\label{eqn:bound-part}
+%	\begin{aligned}
+%		&\Var \left[\sum_{i=\ell}^{L}\sum_{u \in V} \frac{w_i}{Y_{\ell}} \cdot \hat{\vec{r}}^{(\ell)}(u)\cdot p_{i-\ell}(u,v)\mid \hat{\vec{r}}^{(0)},...,\hat{\vec{r}}^{(\ell-1)}\right]\\
+		%&\le (L-\ell+1)\cdot \e \cdot \sum_{i=\ell}^{L} \sum_{u \in V} \frac{w_i}{Y_{\ell-1}} \cdot p_{i-\ell+1}(u,v) \cdot \hat{\vec{r}}^{(\ell-1)}(u).
+%		&\le \e \cdot \sum_{i=\ell}^{L} \sum_{u \in V} \frac{w_i}{Y_{\ell-1}} \cdot p_{i-\ell+1}(u,v) \cdot \hat{\vec{r}}^{(\ell-1)}(u).
+%	\end{aligned}
+%\end{equation}
+%Note $ \vec{z}^{(\ell)}(v)=\sum_{i=0}^{\ell-1} \frac{w_i}{Y_i}\hat{\vec{r}}^{(i)}(v)+ \sum_{i=\ell}^{L}\sum_{u \in V} \frac{w_i}{Y_{\ell}} \cdot \hat{\vec{r}}^{(\ell)}(u)\cdot p_{i-\ell}(u,v)$. By the independence of the residue increment from level $\ell-1$ to $\ell$, the linearity holds for the conditional variance that
+%\begin{equation}\nonumber
+%	\begin{aligned}
+%		&\Var \left[\vec{z}^{(\ell)}(v)\mid \hat{\vec{r}}^{(0)},...,\hat{\vec{r}}^{(\ell-1)} \right]
+%		=\Var \left[ \sum_{i=0}^{\ell-1} \frac{w_i}{Y_i}\hat{\vec{r}}^{(i)}(v)\mid \hat{\vec{r}}^{(0)},...,\hat{\vec{r}}^{(\ell-1)}\right]\\
+%		&+\Var \left[\sum_{i=\ell}^{L}\sum_{u \in V} \frac{w_i}{Y_{\ell}} \cdot \hat{\vec{r}}^{(\ell)}(u)\cdot p_{i-\ell}(u,v)\mid \hat{\vec{r}}^{(0)},...,\hat{\vec{r}}^{(\ell-1)}\right], 
+%	\end{aligned}
+%\end{equation}
+%Applying equation~\eqref{eqn:bound-part} and the fact $\Var \left[ \sum\limits_{i=0}^{\ell-1}\hspace{-1mm}\frac{w_i}{Y_i}\hat{\vec{r}}^{(i)}(v)\mid \hat{\vec{r}}^{(0)}\hspace{-3mm},...,\hat{\vec{r}}^{(\ell-1)}\right]=0$, we can derive that 
+%\begin{equation}\nonumber
+%	\begin{aligned}
+%		\Var \left[\vec{z}^{(\ell)}(v)\mid \hat{\vec{r}}^{(0)},...,\hat{\vec{r}}^{(\ell-1)} \right]
+		%&\le (L-\ell+1)\cdot \e \cdot \sum_{i=\ell}^{L} \sum_{u \in V} \frac{w_i}{Y_{\ell-1}} \cdot p_{i-\ell+1}(u,v) \cdot \hat{\vec{r}}^{(\ell-1)}(u).
+%		\le \e \hspace{-0.5mm}\cdot \hspace{-1mm}\sum_{i=\ell}^{L} \sum_{u \in V} \hspace{-0.5mm} \frac{w_i}{Y_{\ell-1}} \cdot p_{i-\ell+1}(u,v) \cdot \hat{\vec{r}}^{(\ell-1)}(u).
+%	\end{aligned}
+%\end{equation}
+%Lemma~\ref{lem:unbiasedness} guarantees the unbiasedness of $\hat{\vec{r}}^{(\ell-1)}$ that $\E \left[\hat{\vec{r}}^{(\ell-1)}(u) \right]=\vec{r}^{(\ell-1)}(u)$. Hence, %$\Var \left[Z^{(\ell)}(t)\mid \hat{R}^{(0)},...,\hat{R}^{(\ell-1)} \right]\le (L-\ell+1) \sum_{i=\ell}^{L} \sum_{u \in V} \frac{w_i}{Y_{\ell-1}} \cdot p_{i-\ell+1}(u,t) \hat{R}^{(\ell-1)}(u)$. 
+%\begin{equation}\nonumber
+%	\begin{aligned}
+%		\E \left[\Var \left[\vec{z}^{(\ell)}(v)\mid \hat{\vec{r}}^{(0)}\hspace{-2mm},...,\hat{\vec{r}}^{(\ell-1)} \right] \right]
+		%&\le (L-\ell+1)\cdot \e \cdot \sum_{i=\ell}^{L} \sum_{u \in V} \frac{w_i}{Y_{\ell-1}} \cdot p_{i-\ell+1}(u,v) \cdot \vec{r}^{(\ell-1)}(u).
+%		\hspace{-0.5mm}\le \e \hspace{-0.5mm}\cdot \hspace{-1.5mm}\sum_{i=\ell}^{L} \sum_{u \in V}\hspace{-1mm} \frac{w_i}{Y_{\ell-1}} \hspace{-0.5mm} \cdot p_{i-\ell+1}(u,v) \cdot \vec{r}^{(\ell-1)}(u). 
+		%=(L-\ell+1) \sum_{i=\ell}^{L}  Q^{(i)}(t)
+		%&\le (L-\ell+1) \sum_{i=\ell}^{L} \sum_{u \in V}\frac{w_i}{Y_{\ell}} \cdot p_{i-\ell}(u,t) \sum_{w\in N(u)} \delta \cdot \frac{Y_\ell}{Y_{\ell-1}} \cdot \frac{\hat{R}^{(\ell-1)}(w)}{d^{1-r}_u\cdot d^r_w}
+%	\end{aligned}
+%\end{equation}
+%By Definition~\ref{def:RQ-relation}, we have $$\sum_{u \in V} \frac{w_i}{Y_{\ell-1}} \cdot p_{i-\ell+1}(u,v) \cdot \vec{r}^{(\ell-1)}(u)=w_i \cdot \vec{r}^{(i)}(v) =\vec{q}^{(i)}(v).$$ Consequently, %$\E \left[\Var \left[\vec{z}^{(\ell)}(v)\mid \hat{\vec{r}}^{(0)},...,\hat{\vec{r}}^{(\ell-1)} \right] \right] \le (L-\ell+1) \cdot \e \cdot\sum_{i=\ell}^{L} \vec{q}^{(i)}(v) \le (L-\ell+1) \cdot \e \vec{\pi}(v)$. 
+%$\E \left[\Var \left[\vec{z}^{(\ell)}(v)\mid \hat{\vec{r}}^{(0)},...,\hat{\vec{r}}^{(\ell-1)} \right] \right] \hspace{-0.5mm}\le \e \cdot\sum_{i=\ell}^{L} \vec{q}^{(i)}(v) \le \e \vec{\pi}(v)$. 
+%Thus, 
+%\begin{equation}\nonumber
+%	\begin{aligned}
+%		\Var\left[\vec{\epi}(v)\right]=\hspace{-1mm}\sum_{\ell=1}^{L}\hspace{-0.5mm}\E \left[\Var \left[\vec{z}^{(\ell)}(v)\mid \hat{\vec{r}}^{(0)},...,\hat{\vec{r}}^{(\ell-1)}\right]\right]
+		%\le\hspace{-0.5mm} \frac{L(L+1)}{2} \cdot \e \vec{\pi}(v), 
+%		\le\hspace{-0.5mm} L \cdot \e \vec{\pi}(v), 
+%	\end{aligned}
+%\end{equation} 
+%and the Lemma follows.
+
+
+
+
+\subsection{Proof of Theorem~\ref{thm:RP-error}}
+We first show that the expected cost of Algorithm~\ref{alg:AGP-RQ} can be bounded by
+\vspace{-2mm}
+\begin{equation}\nonumber
+\vspace{-1mm}
+\E \left[ C_{total} \right] \le \frac{1}{\e}\cdot \sum_{i=1}^{L} \left\| Y_i \cdot \left(\mathbf{D}^{-(1-r)}\mathbf{A}\mathbf{D}^{-r} \right)^i \cdot \vec{x} \right\|_1. 
+\end{equation}
+By setting $\e=O\left(\frac{\delta}{L}\right)$, the theorem follows. 
+ 
+For $\forall i \in \{1,...,L\}$ and $\forall u,v \in V$, let $C^{(i)}(u,v)$ denote the cost generated by the propagation from node $u$ at level $i-1$ to $v \in N(u)$ at level $i$. According to Algorithm~\ref{alg:AGP-RQ}, $C^{(i)}(u,v)=1$ deterministically if $\frac{Y_{i}}{Y_{i-1}} \cdot \frac{\hat{\r}^{(i-1)}(u)}{d_v^a\cdot d_u^b}\ge \e$. Otherwise, $C^{(i)}(u,v)=1$ with the probability $\frac{1}{\e}\cdot \frac{Y_{i}}{Y_{i-1}} \cdot \frac{\hat{\r}^{(i-1)}(u)}{d_v^a\cdot d_u^b}$, following 
+\vspace{-2mm}
+\begin{equation}\nonumber
+\vspace{-1mm}
+\begin{aligned}
+\hspace{-1mm} \E \left[ C^{(i)}(u,v)\mid \hat{\vec{r}}^{(i-1)} \right]
+&=\hspace{-1mm} \left\{
+\begin{array}{ll}
+1, \quad if \quad \frac{Y_{i}}{Y_{i-1}}\cdot \frac{\hat{\vec{r}}^{(i-1)}(u)}{d_v^a\cdot d_u^b}\ge  \e\\
+1 \cdot \frac{1}{\e}\cdot \frac{Y_{i}}{Y_{i-1}} \cdot \frac{\hat{\vec{r}}^{(i-1)}(u)}{d_v^a\cdot d_u^b}, \quad otherwise
+\end{array} 
+\right.\\
+&\le \frac{1}{\e}\cdot \frac{Y_{i}}{Y_{i-1}} \cdot \frac{\hat{\vec{r}}^{(i-1)}(u)}{d_v^a\cdot d_u^b}.
+\end{aligned}
+\end{equation}
+Because $\E \left[ C^{(i)}(u,v) \right] \le \E \left[\E \left[ C^{(i)}(u,v)\mid \hat{\vec{r}}^{(i-1)} \right]\right]$, we have
+\vspace{-2mm}
+\begin{equation}\nonumber
+\vspace{-1mm}
+	\begin{aligned}
+	\E \left[ C^{(i)}(u,v) \right]=\frac{1}{\e}\cdot \frac{Y_{i}}{Y_{i-1}}  \cdot \frac{\E \left[ \hat{\vec{r}}^{(i-1)}(u)\right]}{d_v^a\cdot d_u^b}
+	=\frac{1}{\e}\cdot \frac{Y_{i}}{Y_{i-1}} \cdot \frac{\vec{r}^{(i-1)}(u)}{d_v^a\cdot d_u^b}, 
+	\end{aligned}
+\end{equation} 
+where we use the unbiasedness of $\hat{\vec{r}}^{(i)}(u)$ shown in Lemma~\ref{lem:unbiasedness}. Let $C_{total}=\sum_{i=1}^{L} \sum_{v\in V} \sum_{u \in N(v)} C^{(i)}(u,v)$ denotes the total time cost of Algorithm~\ref{alg:AGP-RQ}, it follows 
+\vspace{-2mm}
+\begin{equation}\nonumber
+\vspace{-1mm}
+	\begin{aligned}
+	&\E \left[ C_{total} \right]=\sum_{i=1}^{L} \sum_{v\in V} \sum_{u \in N(v)} \E \left[C^{(i)}(u,v)\right]\\
+	&\le\sum_{i=1}^{L} \sum_{v\in V} \sum_{u \in N(v)}\frac{1}{\e}\cdot \frac{Y_{i}}{Y_{i-1}} \cdot \frac{\vec{r}^{(i-1)}(u)}{d_v^a\cdot d_u^b}
+	=\sum_{i=1}^{L} \sum_{v\in V} \frac{1}{\e}\cdot \vec{r}^{(i)}(v).
+	\end{aligned}
+\end{equation}
+By Definition~\ref{def:RQ-relation}, we have $\vec{r}^{(i)}=Y_i \cdot \left(\mathbf{D}^{-a}\mathbf{A}\mathbf{D}^{-b} \right)^i \cdot \vec{x}$, following  
+\begin{equation}\label{eqn:cost1}
+\E \left[ C_{total} \right] \le \frac{1}{\e}\cdot \sum_{i=1}^{L} \left\| Y_i \cdot \left(\mathbf{D}^{-a} \mathbf{A} \mathbf{D}^{-b} \right)^i \cdot \vec{x} \right\|_1.
+\end{equation}
+%which follows the Lemma.
+Recall that Lemma~\ref{lem:variance} presents the variance bound: $\Var\left[\vec{\epi}(v) \right]\le L\cdot \e \vec{\pi}(v)$. According to the Chebyshev's Inequality shown in Section~\ref{sec:chebyshev}, we have
+\begin{equation}\label{eqn:chebypr}
+	\begin{aligned}
+		\Pr \{ \left|\vec{\pi}(v)-\vec{\epi}(v)\right| \ge \frac{1}{10}\cdot \vec{\pi}(v)\} \le \frac{L\cdot \e \vec{\pi}(v)}{\frac{1}{100} \cdot \vec{\pi}^2(v)}=\frac{100L\cdot \e}{\vec{\pi}(v)}. 
+	\end{aligned}
+\end{equation}
+%Denote $\tilde{O}$ as the Big-Oh notation ignoring the log factors. 
+For any node $v$ with $\vec{\pi}(v)> \delta$, when we set $\e=\frac{0.01\cdot \delta}{100L}=O \left( \frac{\delta}{L}\right)$, Equation~\eqref{eqn:chebypr} can be further expressed as 
+\vspace{-2mm}
+\begin{equation}\nonumber
+\vspace{-1mm}
+	\begin{aligned}
+		\Pr \{ \left|\vec{\pi}(v)-\vec{\epi}(v)\right| \ge \frac{1}{10}\cdot \vec{\pi}(v)\} \le \frac{0.01\cdot \delta}{\vec{\pi}(v)} < 0.01.  
+	\end{aligned}
+\end{equation}
+Hence, for any node $v$ with $\pi(v)>\delta$, $\Pr \{ \left|\vec{\pi}(v)-\vec{\epi}(v)\right| \ge \frac{1}{10}\cdot \vec{\pi}(v)\} $ holds with a constant probability ($99\%$). Combining with Equation~\eqref{eqn:cost1}, the expected cost of Algorithm~\ref{alg:AGP-RQ} satisfies 
+\vspace{-2mm}
+\begin{equation}\nonumber
+\vspace{-1mm}
+	\begin{aligned}
+		\E \left[ C_{total} \right] 
+		&\le \frac{1}{\e}\cdot \sum_{i=1}^{L} \left\| Y_i \cdot \left(\mathbf{D}^{-a}\mathbf{A} \mathbf{D}^{-b} \right)^i \cdot \vec{x} \right\|_1\\
+		&=O\left(\frac{L}{\delta}\cdot \sum_{i=1}^{L} \left\| Y_i \cdot \left(\mathbf{D}^{-a}\mathbf{A} \mathbf{D}^{-b} \right)^i \cdot \vec{x} \right\|_1\right), 
+	\end{aligned}
+\end{equation}
+which follows the theorem. 
+
+
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "paper"
+%%% End:

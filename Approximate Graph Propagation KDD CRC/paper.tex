@@ -1,0 +1,282 @@
+%%
+%% This is file `sample-sigconf.tex',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% samples.dtx  (with options: `sigconf')
+%% 
+%% IMPORTANT NOTICE:
+%% 
+%% For the copyright see the source file.
+%% 
+%% Any modified versions of this file must be renamed
+%% with new filenames distinct from sample-sigconf.tex.
+%% 
+%% For distribution of the original source see the terms
+%% for copying and modification in the file samples.dtx.
+%% 
+%% This generated file may be distributed as long as the
+%% original source files, as listed above, are part of the
+%% same distribution. (The sources need not necessarily be
+%% in the same archive or directory.)
+%%
+%%
+%% Commands for TeXCount
+%TC:macro \cite [option:text,text]
+%TC:macro \citep [option:text,text]
+%TC:macro \citet [option:text,text]
+%TC:envir table 0 1
+%TC:envir table* 0 1
+%TC:envir tabular [ignore] word
+%TC:envir displaymath 0 word
+%TC:envir math 0 word
+%TC:envir comment 0 0
+%%
+%%
+%% The first command in your LaTeX source must be the \documentclass command.
+\documentclass[sigconf]{acmart}
+
+
+\usepackage{amsmath,amsfonts,dsfont,multirow,multicol,epsfig,url,array,makecell,balance,color,epstopdf}
+%\usepackage{algorithm}
+\usepackage{algorithmic}
+\usepackage[ruled, vlined, linesnumbered]{algorithm2e}
+\usepackage{hhline}
+\usepackage{array}
+\usepackage{enumerate}
+\usepackage{enumitem}
+\usepackage{subfigure}
+\usepackage{booktabs}
+\usepackage{xcolor,colortbl}
+\usepackage{bm}
+\usepackage{balance}
+%\usepackage{color}
+%\newcommand{\bigcell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+%\setlist[itemize]{leftmargin=*}
+\usepackage{footnote}
+\usepackage{threeparttable}
+\usepackage{balance}
+
+\input{symbol-def.tex}
+\renewcommand{\vec}{\bm}
+
+%%
+%% \BibTeX command to typeset BibTeX logo in the docs
+\AtBeginDocument{%
+  \providecommand\BibTeX{{%
+    \normalfont B\kern-0.5em{\scshape i\kern-0.25em b}\kern-0.8em\TeX}}}
+
+%% Rights management information.  This information is sent to you
+%% when you complete the rights form.  These commands have SAMPLE
+%% values in them; it is your responsibility as an author to replace
+%% the commands and values with those provided to you when you
+%% complete the rights form.
+
+
+%% These commands are for a PROCEEDINGS abstract or paper.
+\copyrightyear{2021}
+\acmYear{2021}
+\setcopyright{acmlicensed}\acmConference[KDD '21]{Proceedings of the 27th ACM SIGKDD Conference on Knowledge Discovery and Data Mining}{August 14--18, 2021}{Virtual Event, Singapore}
+\acmBooktitle{Proceedings of the 27th ACM SIGKDD Conference on Knowledge Discovery and Data Mining (KDD '21), August 14--18, 2021, Virtual Event, Singapore}
+\acmPrice{15.00}
+\acmDOI{10.1145/3447548.3467243} \acmISBN{978-1-4503-8332-5/21/08}
+
+
+%%
+%% Submission ID.
+%% Use this when submitting an article to a sponsored event. You'll
+%% receive a unique submission ID from the organizers
+%% of the event, and this ID should be used as the parameter to this command.
+%%\acmSubmissionID{123-A56-BU3}
+
+%%
+%% The majority of ACM publications use numbered citations and
+%% references.  The command \citestyle{authoryear} switches to the
+%% "author year" style.
+%%
+%% If you are preparing content for an event
+%% sponsored by ACM SIGGRAPH, you must use the "author year" style of
+%% citations and references.
+%% Uncommenting
+%% the next command will enable that style.
+%%\citestyle{acmauthoryear}
+
+%%
+%% end of the preamble, start of the body of the document source.
+\begin{document}
+\fancyhead{}
+%%
+%% The "title" command has an optional parameter,
+%% allowing the author to define a "short title" to be used in page headers.
+\title{Approximate Graph Propagation}
+%\subtitle{[Technical Report]}
+
+%%
+%% The "author" command and its associated commands are used to define
+%% the authors and their affiliations.
+%% Of note is the shared affiliation of the first two authors, and the
+%% "authornote" and "authornotemark" commands
+%% used to denote shared contribution to the research.
+\author{Hanzhi Wang}
+%\author{Mingguo He}
+%\author{Zhewei Wei}
+%\authornote{Zhewei Wei is the corresponding author. Work partially done at Gaoling School of Artificial Intelligence, Beijing Key Laboratory of Big Data Management and Analysis Methods, MOE Key Lab DEKE, Renmin University of China, and Pazhou Lab, Guangzhou, 510330, China.}
+%\email{hanzhi_wang,mingguo@ruc.edu.cn}
+\email{hanzhi_wang@ruc.edu.cn}
+\affiliation{%
+  \institution{Renmin University of China}
+  \city{Beijing}
+  \country{China}
+}
+
+\author{Mingguo He}
+\email{mingguo@ruc.edu.cn}
+ \affiliation{%
+   \institution{Renmin University of China}
+   \city{Beijing}
+   \country{China}
+}
+
+
+\author{Zhewei Wei}
+\email{zhewei@ruc.edu.cn}
+\authornote{Zhewei Wei is the corresponding author. Work partially done at Gaoling School of Artificial Intelligence, Beijing Key Laboratory of Big Data Management and Analysis Methods, MOE Key Lab DEKE, Renmin University of China, and Pazhou Lab, Guangzhou, 510330, China.}
+\affiliation{%
+  \institution{Renmin University of China}
+  \city{Beijing}
+  \country{China}
+}
+
+\author{Sibo Wang}
+\email{swang@se.cuhk.edu.hk}
+\affiliation{%
+ \institution{The Chinese University of Hong Kong}
+ \city{Hong Kong}
+ \country{China}
+}
+
+\author{Ye Yuan}
+\email{yuan-ye@bit.edu.cn}
+\affiliation{%
+  \institution{Beijing Institute of Technology}
+  \city{Beijing}
+  \country{China}}
+
+\author{Xiaoyong Du}
+\author{Ji-Rong Wen}
+%\email{duyong@ruc.edu.cn}
+\email{duyong, jrwen@ruc.edu.cn}
+\affiliation{%
+  \institution{Renmin University of China}
+  \city{Beijing}
+  \country{China}
+}
+
+%\author{Ji-Rong Wen}
+%\email{jrwen@ruc.edu.cn}
+%\affiliation{%
+%  \institution{Renmin University of China}
+%  \city{Beijing}
+%  \country{China}
+%}
+
+
+%%
+%% By default, the full list of authors will be used in the page
+%% headers. Often, this list is too long, and will overlap
+%% other information printed in the page headers. This command allows
+%% the author to define a more concise list
+%% of authors' names for this purpose.
+
+%\renewcommand{\shortauthors}{Trovato and Tobin, et al.}
+
+%%
+%% The abstract is a short summary of the work to be presented in the
+%% article.
+
+\input{abstract}
+
+%%
+%% The code below is generated by the tool at http://dl.acm.org/ccs.cfm.
+%% Please copy and paste the code instead of the example below.
+%%
+\begin{CCSXML}
+<ccs2012>
+   <concept>
+       <concept_id>10002950.10003624.10003633.10010917</concept_id>
+       <concept_desc>Mathematics of computing~Graph algorithms</concept_desc>
+       <concept_significance>500</concept_significance>
+       </concept>
+   <concept>
+       <concept_id>10002951.10003227.10003351</concept_id>
+       <concept_desc>Information systems~Data mining</concept_desc>
+       <concept_significance>500</concept_significance>
+       </concept>
+ </ccs2012>
+\end{CCSXML}
+
+\ccsdesc[500]{Mathematics of computing~Graph algorithms}
+\ccsdesc[500]{Information systems~Data mining}
+
+%%
+%% Keywords. The author(s) should pick words that accurately describe
+%% the work being presented. Separate the keywords with commas.
+\keywords{node proximity queries, local clustering, Graph Neural Networks}
+
+
+%% A "teaser" image appears between the author and affiliation
+%% information and the body of the document, and typically spans the
+%% page.
+%\begin{teaserfigure}
+%  \includegraphics[width=\textwidth]{sampleteaser}
+%  \caption{Seattle Mariners at Spring Training, 2010.}
+%  \Description{Enjoying the baseball game from the third-base
+%  seats. Ichiro Suzuki preparing to bat.}
+%  \label{fig:teaser}
+%\end{teaserfigure}
+
+%\pagestyle{plain}
+
+%%
+%% This command processes the author and affiliation and title
+%% information and builds the first part of the formatted document.
+\maketitle
+
+
+\input{intro.tex}
+\input{pre.tex}
+\input{algorithm.tex}
+\input{analysis.tex}
+%\input{optimization.tex}
+\input{others.tex}
+%\input{applications.tex}
+\input{experiment.tex}
+\input{conclusion.tex}
+\input{acknowledgement.tex}
+
+
+%%
+%% The next two lines define the bibliography style to be used, and
+%% the bibliography file.
+
+\balance
+%\bibliographystyle{ACM-Reference-Format}
+\bibliographystyle{plain}
+\bibliography{paper}
+
+%%
+%% If your work has an appendix, this is the place to put it.
+
+
+\appendix
+\input{appendix.tex}
+%\input{proofs.tex}
+
+
+
+
+\end{document}
+\endinput
+%%
+%% End of file `sample-sigconf.tex'.
