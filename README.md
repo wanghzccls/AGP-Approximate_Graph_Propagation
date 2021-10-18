@@ -1,5 +1,6 @@
 #  Approximate Graph Propagation
 
+Codes Contributors: Hanzhi Wang, Mingguo He
 <br/>
 
 ## Citation
