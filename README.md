@@ -1,6 +1,7 @@
 #  Approximate Graph Propagation
 
 <br/>
+
 ## Citation
 Please cite our paper when using the codes: 
 
