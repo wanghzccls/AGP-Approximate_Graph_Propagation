@@ -75,12 +75,12 @@ To run AGP:
 ```
 
 ### Parameters:
-- -d \<path of the "AGP-master" directory\> (default "./")
-- -f \<filelabel\> (default youtube)
-- -algo \<algorithm\> (default "QUERY")
-- [-e \<epsilon\> (default 0.001)]
-- [-qn \<querynum\> (default 10)]
-- [-t \<the heat kernel parameter\> (default 5)]
+- -d \<path of the "AGP-master" directory\> ("./" by default)
+- -f \<filelabel\> ("youtube" by default)
+- -algo \<algorithm\> ("AGP" by default)
+- -e \<epsilon\> (0.001 by default)
+- -qn \<querynum\> (10 by default)
+- -t \<the heat kernel parameter\> (5 by default)
 
 
 ### Remark:
