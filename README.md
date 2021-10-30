@@ -36,32 +36,32 @@ series = {KDD '21}
     * Friendster: https://snap.stanford.edu/data/bigdata/communities/com-friendster.ungraph.txt.gz
     * Twitter: http://data.law.di.unimi.it/webdata/twitter-2010/twitter-2010.graph
 
-    Additionally, we provide a toy dataset at *AGP-master/clustering-HKPR/dataset/*. 
+    Additionally, we provide a toy dataset at *clustering-HKPR/dataset/*. 
 
 * Each dataset has a unique name called filelabel (e.g. *youtube*, *orkut*, *friendster* and *twitter*) . 
-* Please rename the raw datasets as *${filelabel}.txt* (e.g. *youtube.txt*, *orkut.txt*, *friendster.txt*, and *twitter.txt*) and put them in the directory: *AGP-master/clustering-HKPR/dataset/*. 
+* Please rename the raw datasets as *${filelabel}.txt* (e.g. *youtube.txt*, *orkut.txt*, *friendster.txt*, and *twitter.txt*) and put them in the directory: *clustering-HKPR/dataset/*. 
 * We assume that all raw datasets follow a consistent format: 
     * The number of nodes is explicitly specified in the first line of the data file. 
     * Each line following the second line indicates a **directed** edge in the graph. 
 * We assume that all undirected graphs have been converted to directed graphs that each undirected edge appears twice in the data file. 
 * We assume that the node index starts from $0$. The number of nodes is larger than the largest node index. 
-* The code converts the raw data to binary file in CSR format when reading raw graphs for the first time. The converted binary data is stored in the directory: *AGP-master/clustering-HKPR/dataset/${filelabel}/*. 
+* The code converts the raw data to binary file in CSR format when reading raw graphs for the first time. The converted binary data is stored in the directory: *clustering-HKPR/dataset/${filelabel}/*. 
 
 
 ### Query nodes:
 * When the code is invoked for the first time, it will automatically construct a query file containing 100 query nodes.
-* We name the query file as ${filelabel}.query and put it in the directory: *AGP-master/clustering-HKPR/query/*. 
+* We name the query file as ${filelabel}.query and put it in the directory: *clustering-HKPR/query/*. 
 
 
 ### Execution:
-We include the fundamental commands in the script file: *AGP-master/clustering-HKPR/run_script.sh*. To automatically execute our codes, please use the following bash commands: 
+We include the fundamental commands in the script file: *clustering-HKPR/run_script.sh*. To automatically execute our codes, please use the following bash commands: 
 ```
 bash run_script.sh
 ```
 
 Alternatively, our codes can be executed mannually. Specifically, to compile the codes: 
 ```
-cd AGP-master/clustering-HKPR
+cd clustering-HKPR
 rm HKPR
 make
 ```
@@ -84,9 +84,9 @@ To run AGP:
 
 
 ### Remark:
-* *AGP/clustering-HKPR/datatset/*: containing the datasets 
-* *AGP/clustering-HKPR/query/*: containing the query files
-* *AGP/clustering-HKPR/result/*: containing the approximation results. 
+* *clustering-HKPR/datatset/*: containing the datasets 
+* *clustering-HKPR/query/*: containing the query files
+* *clustering-HKPR/result/*: containing the approximation results. 
 
 <br/>
 
